@@ -1,10 +1,7 @@
-from torchbench.image_classification import ImageNet
-import torchvision.transforms as transforms
-import torchvision.transforms.functional as F
 import PIL
-import urllib.request
 import torch
-import torchvision.models as models
+import torchvision.transforms as transforms
+from torchbench.image_classification import ImageNet
 
 
 class ECenterCrop:
@@ -16,6 +13,7 @@ class ECenterCrop:
     Returns:
         PIL Image: Cropped image.
     """
+
     def __init__(self, imgsize):
         self.imgsize = imgsize
         self.resize_method = transforms.Resize((imgsize, imgsize), interpolation=PIL.Image.BICUBIC)
@@ -36,12 +34,12 @@ class ECenterCrop:
 # Model 1
 # Define the transforms need to convert ImageNet data to expected model input
 input_transform = transforms.Compose([
-        ECenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                             std=[0.229, 0.224, 0.225]),
-    ])
-model = torch.hub.load('zhanghang1989/ResNeSt',  'resnest50', pretrained=True)
+    ECenterCrop(224),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                         std=[0.229, 0.224, 0.225]),
+])
+model = torch.hub.load('zhanghang1989/ResNeSt', 'resnest50', pretrained=True)
 
 # Run the benchmark
 ImageNet.benchmark(
@@ -51,20 +49,19 @@ ImageNet.benchmark(
     input_transform=input_transform,
     batch_size=32,
     num_gpu=1,
-    model_description="Official weights from the author's of the paper.",
+    model_description="Official weights from the authors of the paper.",
 )
 torch.cuda.empty_cache()
-
 
 # Model 2
 # Define the transforms need to convert ImageNet data to expected model input
 input_transform = transforms.Compose([
-        ECenterCrop(256),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                             std=[0.229, 0.224, 0.225]),
-    ])
-model = torch.hub.load('zhanghang1989/ResNeSt',  'resnest101', pretrained=True)
+    ECenterCrop(256),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                         std=[0.229, 0.224, 0.225]),
+])
+model = torch.hub.load('zhanghang1989/ResNeSt', 'resnest101', pretrained=True)
 
 # Run the benchmark
 ImageNet.benchmark(
@@ -74,20 +71,19 @@ ImageNet.benchmark(
     input_transform=input_transform,
     batch_size=32,
     num_gpu=1,
-    model_description="Official weights from the author's of the paper."
+    model_description="Official weights from the authors of the paper."
 )
 torch.cuda.empty_cache()
-
 
 # Model 1
 # Define the transforms need to convert ImageNet data to expected model input
 input_transform = transforms.Compose([
-        ECenterCrop(320),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                             std=[0.229, 0.224, 0.225]),
-    ])
-model = torch.hub.load('zhanghang1989/ResNeSt',  'resnest200', pretrained=True)
+    ECenterCrop(320),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                         std=[0.229, 0.224, 0.225]),
+])
+model = torch.hub.load('zhanghang1989/ResNeSt', 'resnest200', pretrained=True)
 
 # Run the benchmark
 ImageNet.benchmark(
@@ -97,20 +93,19 @@ ImageNet.benchmark(
     input_transform=input_transform,
     batch_size=32,
     num_gpu=1,
-    model_description="Official weights from the author's of the paper."
+    model_description="Official weights from the authors of the paper."
 )
 torch.cuda.empty_cache()
-
 
 # Model 1
 # Define the transforms need to convert ImageNet data to expected model input
 input_transform = transforms.Compose([
-        ECenterCrop(416),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                             std=[0.229, 0.224, 0.225]),
-    ])
-model = torch.hub.load('zhanghang1989/ResNeSt',  'resnest269', pretrained=True)
+    ECenterCrop(416),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                         std=[0.229, 0.224, 0.225]),
+])
+model = torch.hub.load('zhanghang1989/ResNeSt', 'resnest269', pretrained=True)
 
 # Run the benchmark
 ImageNet.benchmark(
@@ -120,6 +115,6 @@ ImageNet.benchmark(
     input_transform=input_transform,
     batch_size=32,
     num_gpu=1,
-    model_description="Official weights from the author's of the paper."
+    model_description="Official weights from the authors of the paper."
 )
 torch.cuda.empty_cache()
